@@ -6,6 +6,7 @@ from config.db import get_db
 from schemas.user_schemas import UserModelPost, UserModelGet, UserModelPut
 from models import user_models
 from utils.auth.authenticate_user import get_user_disabled_current, authenticate_token_jwt
+from utils.auth.authenticate_email import authenticate_email
 
 from sqlalchemy.exc import SQLAlchemyError
 from sqlalchemy import update
@@ -53,7 +54,9 @@ async def create_user(user: UserModelPost, db: Session = Depends(get_db)):
                 detail="Error: " + str(e)
             )
 
-    return ({"message": "created ok"})
+    send_email_user = authenticate_email(**user_data)
+
+    return ({"message": "created ok"}, send_email_user)
 
 #*------------------------------------METHOD PUT-----------------------------------------------
 
