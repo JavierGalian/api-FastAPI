@@ -42,9 +42,16 @@ async def create_user(user: UserModelPost, db: Session = Depends(get_db)):
 
     
     new_user = user_models.UserModels(**user_data)  # Unpack the dictionary
-    db.add(new_user)
-    db.commit()
-    db.refresh(new_user)
+
+    try:
+        db.add(new_user)
+        db.commit()
+        db.refresh(new_user)
+    except SQLAlchemyError as e:
+        raise HTTPException(
+                status_code=status.HTTP_500_INTERNAL_SERVER_ERROR,
+                detail="Error: " + str(e)
+            )
 
     return ({"message": "created ok"})
 
