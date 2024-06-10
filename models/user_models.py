@@ -17,7 +17,7 @@ class UserModels(Base):
     birth_date = Column(Date, nullable=False)
     gender = Column(Enum("Masculino","Femenino", name="gender_type"), nullable=False)
     password_hash = Column(String(100), nullable=False)  # Almacena el hash
-    is_active = Column(Boolean, nullable=False, default=True)
+    is_active = Column(Boolean, nullable=False, default=False)
 
     tasks = relationship("Task", backref="user")
 
