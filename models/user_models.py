@@ -28,7 +28,7 @@ class UserModels(Base):
         self.email = kwargs.get("email")
         self.birth_date = kwargs.get("birth_date")
         self.gender = kwargs.get("gender").value
-        self.is_active = kwargs.get("is_active", True)
+        self.is_active = kwargs.get("is_active", False)
         self.password_hash = self.set_password(kwargs.get("password_hash"))
 
 
