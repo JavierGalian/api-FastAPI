@@ -20,6 +20,7 @@ class UserModels(Base):
     is_active = Column(Boolean, nullable=False, default=False)
 
     tasks = relationship("Task", backref="user")
+    products = relationship("Product", backref="user")
 
     def __init__(self, **kwargs):
         self.first_name = kwargs.get("first_name")

@@ -14,6 +14,8 @@ class Task(Base):
 
     user_id = Column (Integer, ForeignKey("user.id"), nullable=False)
 
+    user = relationship("UserModels", backref="task")
+
     def __init__(self, **kwargs):
         self.id = kwargs.get("id")
         self.title = kwargs.get("title")
