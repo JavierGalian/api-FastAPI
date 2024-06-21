@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from config.db import engine
 from controllers import auth, users, tasks, authenticate_email
-from models.tasks_models import Base
+from config.db import Base
 
 Base.metadata.create_all(bind=engine)
 
