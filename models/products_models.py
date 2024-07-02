@@ -1,5 +1,5 @@
 from config.db import Base
-from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum
+from sqlalchemy import Column, Integer, String, ForeignKey, DateTime, Enum, Float
 from sqlalchemy.orm import relationship
 from datetime import datetime
 
@@ -10,8 +10,8 @@ class Product(Base):
     id = Column(Integer, nullable=False)
     name = Column(String, nullable=False)
     description = Column(String, nullable=False)
-    price = Column(Integer, nullable=False)
-    category_id = Column(Integer, ForeignKey("category.id"))
+    price = Column(Float, nullable=False)
+    category_id = Column(Integer, ForeignKey("category.id"), nullable=False)
     stock = Column(Integer, nullable=False)
     sku = Column(String, nullable=False) #SKU (Stock Keeping Unit): Un código único para identificar el producto en inventario.
     created_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
@@ -19,9 +19,6 @@ class Product(Base):
     status = Column(Enum("Active","Desactive", name="state_of_product"), nullable=False)
     brand = Column(String, nullable=False)
     user_id = Column(Integer, ForeignKey("user.id"), nullable=False)
-
-    category = relationship("Category", backref="product")
-    user = relationship("UserModels", backref="product")
 
     def __init__(self, **kwargs):
         self.id = kwargs.get("id")
