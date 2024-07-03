@@ -11,7 +11,7 @@ class Product(Base):
     name = Column(String, nullable=False)
     description = Column(String, nullable=False)
     price = Column(Float, nullable=False)
-    category_id = Column(Integer, ForeignKey("category.id"), nullable=False)
+    category_name = Column(String, ForeignKey("category.name"), nullable=False)
     stock = Column(Integer, nullable=False)
     sku = Column(String, nullable=False) #SKU (Stock Keeping Unit): Un código único para identificar el producto en inventario.
     created_at = Column(DateTime, default=datetime.now, onupdate=datetime.now)
@@ -25,7 +25,7 @@ class Product(Base):
         self.name = kwargs.get("name")
         self.description = kwargs.get("description")
         self.price = kwargs.get("price")
-        self.category_id = kwargs.get("category_id")
+        self.category_name = kwargs.get("category_name")
         self.stock = kwargs.get("stock")
         self.sku = kwargs.get("sku")
         self.updated_at = kwargs.get("updated_at")
