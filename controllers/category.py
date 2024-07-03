@@ -47,7 +47,7 @@ def post_category(category : PostCategory, db : Session = Depends(get_db), token
     
     db_category = db.query(Category).filter(Category.name == category.name).first()
 
-    if db_category.name == category.name:
+    if db_category:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, 
                             detail="categoria existente")
 
